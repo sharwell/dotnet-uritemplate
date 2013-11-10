@@ -44,5 +44,15 @@
         {
             return _text;
         }
+
+        protected override void BuildPatternBody(StringBuilder pattern, ICollection<string> listVariables, ICollection<string> mapVariables)
+        {
+            pattern.Append(Regex.Escape(_text));
+        }
+
+        protected internal override KeyValuePair<VariableReference, object>[] Match(string text, ICollection<string> listVariables, ICollection<string> mapVariables)
+        {
+            return new KeyValuePair<VariableReference, object>[0];
+        }
     }
 }

@@ -8,7 +8,7 @@
     /// </summary>
     /// <threadsafety static="true" instance="true"/>
     /// <preliminary/>
-    internal class VariableReference
+    public class VariableReference
     {
         /// <summary>
         /// This regular expression is used to validate the <see cref="Name"/> property when

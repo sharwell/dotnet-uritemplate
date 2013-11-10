@@ -10,6 +10,10 @@
 
     internal abstract class UriTemplatePartExpansion : UriTemplatePart
     {
+        protected const string UnreservedCharacterPattern = @"(?:[a-zA-Z0-9._~-]|" + UriTemplate.PctEncodedPattern + ")";
+
+        protected const string ReservedCharacterPattern = @"(?:[:/?#[\]@!$&'()*+,;=]" + @")";
+
         private readonly VariableReference[] _variables;
 
         public UriTemplatePartExpansion(IEnumerable<VariableReference> variables)
@@ -64,6 +68,24 @@
                 added = true;
             }
         }
+
+        protected override sealed void BuildPatternBody(StringBuilder pattern, ICollection<string> listVariables, ICollection<string> mapVariables)
+        {
+            foreach (VariableReference variable in Variables)
+            {
+                if (variable.Prefix != null)
+                {
+                    if (listVariables.Contains(variable.Name))
+                        throw new InvalidOperationException("Cannot treat a variable with a prefix modifier as a list.");
+                    if (mapVariables.Contains(variable.Name))
+                        throw new InvalidOperationException("Cannot treat a variable with a prefix modifier as an associative map.");
+                }
+            }
+
+            BuildPatternBodyImpl(pattern, listVariables, mapVariables);
+        }
+
+        protected abstract void BuildPatternBodyImpl(StringBuilder pattern, ICollection<string> listVariables, ICollection<string> mapVariables);
 
         protected static void AppendText(StringBuilder builder, VariableReference variable, string value, bool escapeReserved)
         {
