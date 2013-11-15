@@ -63,6 +63,7 @@
     <Compile Include="UriTemplatePartQueryExpansion.cs" />
     <Compile Include="UriTemplatePartSimpleExpansion.cs" />
     <Compile Include="UriTemplatePartType.cs" />
+    <Compile Include="UriTemplateTable.cs" />
     <Compile Include="VariableReference.cs" />
   </ItemGroup>
   <ItemGroup>

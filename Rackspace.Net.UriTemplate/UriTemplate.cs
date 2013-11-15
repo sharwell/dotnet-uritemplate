@@ -9,6 +9,8 @@
     /// <summary>
     /// A class that represents an RFC 6570 URI Template.
     /// </summary>
+    /// <threadsafety static="true" instance="true"/>
+    /// <preliminary/>
     public class UriTemplate
     {
         /// <summary>
